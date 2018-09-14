@@ -1,73 +1,54 @@
 # -*- coding: utf-8 -*-
 
-# Notes
-#   1. You must enable I2C on your Raspberry Pi board (see your particular operating system documentation).
-#       On Raspian: Menu...Preferences...Raspberry Pi Configuration...Interfaces...Enable I2C
-#   2. If using Python 3, you will need to install python3-smbus:
-#       sudo apt-get install python3-smbus
-
 '''
-  I2cCharDisplay.py - class library for using LCD and OLED character displays
+    I2cCharDisplay.py - class library for using LCD and OLED character displays
 
-  Written by: Gary Muhonen  gary@wht.io
+    Written by: Gary Muhonen  gary@dcity.org
 
-  versions
-    1.0.0 - 7/31/2016
-      Original Release.
+    Versions
+        1.0.0 - 8/2/2016
+            Original release.
+        1.0.1 - 9/1/2018
+            Transfer to GM, and some minor changes
+            Added these OLED "fade display" functions (not very useful for some types of OLED displays)
+                void fadeOff()           - turns off the fade feature of the OLED
+                void fadeOnce(value)   - fade out the display to off (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
+                void fadeBlink(value)  - blinks the fade feature of the OLED (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
 
+    Short Description:
 
-  Short Description:
+        These files provide a software library and demo program for the Raspberry Pi
 
-    This demo program works with Raspberry Pi
-    boards and it tests features in the I2cCharDisplay library
-    (which contains many functions to communicate with OLED and LCD character
-    display modules that use the I2C communication protocol).
+        The library files provide useful functions to make it easy
+        to communicate with OLED and LCD character
+        display modules that use the I2C communication protocol. The demo
+        program shows the usage of the functions in the library.
 
-    The library will work with **LCD** and **OLED** character displays
-    (e.g. 16x2, 20x2, 20x4, etc.). The LCD displays must use the the
-    HD44780 controller chip and have a I2C PCA8574 i/o expander chip
-    on a backpack board (which gives the display I2C capability).
-    OLED display modules must have the US2066 controller chip
-    (which has I2C built in).
-
-    See the links below for installation and usage information.
-
-    Project Details:
-    * Library installation and usage: http://wht.io/portfolio/i2c-display-library/
-    * OLED hardware information for EastRising modules: http://wht.io/portfolio/i2c-oled-backpack-board-eastrising/
-    * OLED hardware information for Newhaven modules: http://wht.io/portfolio/i2c-oled-backpack-board-newhaven/
-    * LCD hardware information: http://wht.io/portfolio/i2c-lcd-backpack-board/
-
-    Software Github repositories (library and demo programs):
-    * Arduino library files:  https://github.com/wht-io/i2c-char-display-arduino.git
-    * Particle library files: https://github.com/wht-io/i2c-char-display-particle.git
-    * Raspberry Pi library files: https://github.com/wht-io/i2c-char-display-raspberrypi.git
+        The library will work with **LCD** and **OLED** character displays
+        (e.g. 16x2, 20x2, 20x4, etc.). The LCD displays must use the the
+        HD44780 controller chip and have a I2C PCA8574 i/o expander chip
+        on a backpack board (which gives the display I2C capability).
+        OLED display modules must have the US2066 controller chip
+        (which has I2C built in). Backback boards are available and
+        details are in the link below.
 
 
+    https://www.dcity.org/portfolio/i2c-display-library/
+    This link has details including:
+        * software library installation for use with Arduino, Particle and Raspberry Pi boards
+        * list of functions available in these libraries
+        * a demo program (which shows the usage of most library functions)
+        * info on OLED and LCD character displays that work with this software
+        * hardware design for a backpack board for LCDs and OLEDs, available on github
+        * info on backpack “bare” pc boards available from OSH Park.
 
-  Windy Hill Technology LLC code, firmware, and software is released under the
-  MIT License (http://opensource.org/licenses/MIT).
+    License Information:  https://www.dcity.org/license-information/
 
-  The MIT License (MIT)
 
-  Copyright (c) 2016 Windy Hill Technology LLC
-
-  Permission is hereby granted, free of charge, to any person obtaining a
-  copy of this software and associated documentation files (the "Software"),
-  to deal in the Software without restriction, including without limitation
-  the rights to use, copy, modify, merge, publish, distribute, sublicense,
-  and/or sell copies of the Software, and to permit persons to whom the
-  Software is furnished to do so, subject to the following conditions:
-  The above copyright notice and this permission notice shall be included
-  in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-  OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-  DEALINGS IN THE SOFTWARE.
+    Notes:
+        1. You must enable I2C on your Raspberry Pi board (see your particular operating system documentation).
+            On Raspian: Menu...Preferences...Raspberry Pi Configuration...Interfaces...Enable I2C
+        2. This software was tested on a RASPBERRY PI 3 MODEL B, running Rasbian and Python 3.5.2
 
 '''
 
@@ -88,6 +69,11 @@ class I2cCharDisplay(object):
     OLED_COMMANDMODE =             0x80
     OLED_DATAMODE =                0x40
     OLED_SETBRIGHTNESSCOMMAND =    0X81
+    OLED_SETFADECOMMAND =          0x23       # command address for setting the fade out command
+    # bits for setting the fade command
+    OLED_FADEOFF =                 0X00       # command value for setting fade mode to off
+    OLED_FADEON =                  0X20       # command value for setting fade mode to on
+    OLED_FADEBLINK =               0X30       # command value for setting fade mode to blink
 
     # lcd specific constants
 

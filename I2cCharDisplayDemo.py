@@ -1,55 +1,59 @@
 # -*- coding: utf-8 -*-
 
-# Notes
-#   1. You must enable I2C on your Raspberry Pi board (see your particular operating system documentation).
-#       On Raspian: Menu...Preferences...Raspberry Pi Configuration...Interfaces...Enable I2C
-#   2. If using Python 3, you will need to install python3-smbus:
-#       sudo apt-get install python3-smbus
-
 '''
-  I2cCharDisplayDemo.ino
+    I2cCharDisplayDemo.ino
 
-  Written by: Gary Muhonen  gary@wht.io
+    Written by: Gary Muhonen  gary@dcity.org
 
-  versions
-    1.0.0 - 8/2/2016
-      Original release.
+    Versions
+        1.0.0 - 8/2/2016
+            Original release.
+        1.0.1 - 9/1/2018
+            Transfer to GM, and some minor changes
+            Added these OLED "fade display" functions (not very useful for some types of OLED displays)
+                void fadeOff()           - turns off the fade feature of the OLED
+                void fadeOnce(value)   - fade out the display to off (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
+                void fadeBlink(value)  - blinks the fade feature of the OLED (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
 
-  Short Description:
+    Short Description:
 
-    These files provide software for the Raspberry Pi, using Python2 or Python3.
-    The library files provide useful functions to make it easy
-    to communicate with OLED and LCD character
-    display modules that use the I2C communication protocol. The demo
-    program shows the usage of the functions in the library.
+        These files provide a software library and demo program for the Raspberry Pi
 
-    The library will work with **LCD** and **OLED** character displays
-    (e.g. 16x2, 20x2, 20x4, etc.). The LCD displays must use the the
-    HD44780 controller chip and have a I2C PCA8574 i/o expander chip
-    on a backpack board (which gives the display I2C capability).
-    OLED display modules must have the US2066 controller chip
-    (which has I2C built in).
+        The library files provide useful functions to make it easy
+        to communicate with OLED and LCD character
+        display modules that use the I2C communication protocol. The demo
+        program shows the usage of the functions in the library.
 
-    See the links below for installation and usage information.
-
-    Project Details:
-    * Library installation and usage: http://wht.io/portfolio/i2c-display-library/
-    * OLED hardware information for EastRising modules: http://wht.io/portfolio/i2c-oled-backpack-board-eastrising/
-    * OLED hardware information for Newhaven modules: http://wht.io/portfolio/i2c-oled-backpack-board-newhaven/
-    * LCD hardware information: http://wht.io/portfolio/i2c-lcd-backpack-board/
-
-    Software Github repositories (library and demo programs):
-    * Arduino library files:  https://github.com/wht-io/i2c-char-display-arduino.git
-    * Particle library files: https://github.com/wht-io/i2c-char-display-particle.git
-    * Raspberry Pi library files: https://github.com/wht-io/i2c-char-display-raspberrypi.git
+        The library will work with **LCD** and **OLED** character displays
+        (e.g. 16x2, 20x2, 20x4, etc.). The LCD displays must use the the
+        HD44780 controller chip and have a I2C PCA8574 i/o expander chip
+        on a backpack board (which gives the display I2C capability).
+        OLED display modules must have the US2066 controller chip
+        (which has I2C built in). Backback boards are available and 
+        details are in the link below.
 
 
-'''
+    https://www.dcity.org/portfolio/i2c-display-library/
+    This link has details including:
+        * software library installation for use with Arduino, Particle and Raspberry Pi boards
+        * list of functions available in these libraries
+        * a demo program (which shows the usage of most library functions)
+        * info on OLED and LCD character displays that work with this software
+        * hardware design for a backpack board for LCDs and OLEDs, available on github
+        * info on backpack “bare” pc boards available from OSH Park.
 
-'''
     This demo program is public domain. You may use it for any purpose.
-    NO WARRANTY IS IMPLIED.
+        NO WARRANTY IS IMPLIED.
+
+    License Information:  https://www.dcity.org/license-information/
+
+    Notes:
+        1. You must enable I2C on your Raspberry Pi board (see your particular operating system documentation).
+            On Raspian: Menu...Preferences...Raspberry Pi Configuration...Interfaces...Enable I2C
+        2. This software was tested on a RASPBERRY PI 3 MODEL B, running Rasbian and Python 3.5.2
 '''
+
+
 
 from I2cCharDisplay import I2cCharDisplay
 from time import sleep
@@ -328,6 +332,57 @@ if __name__ == "__main__":
             sleep(1)
             lcd.backlightOn()
             oled.setBrightness(255)
+
+
+
+        # test the oled fade mode = blink (display will fade down in brightness, blink, and come up in brightness... then repeat)
+        #      In my opinion this feature is not that useful, but I provided it because the OLED is capable of it.
+        # test the lcd backlight on/off
+        # Note: Fade mode is not very useful for some displays, as some displays will fade in brightness to about 50% and then turn off.
+        for i in range(0,TESTNUM):
+            lcd.clear()
+            oled.clear()
+            lcd.backlightOn()
+            lcd.writeString("Backlight On/Off")
+            oled.fadeOff()
+            oled.writeString("Fade Mode = Off")
+            sleep(2)
+            lcd.clear()
+            oled.clear()
+            lcd.writeString("Backlight Off")
+            lcd.backlightOff()
+            oled.writeString("Fade Mode = Blink")
+            oled.fadeBlink(0)   # fade the oled with a delay of 0 (valid values are 0-15). You must use fadeOff() to turn off blink mode.
+            sleep(10)
+        lcd.writeString("Backlight On")
+        oled.fadeOff()
+
+        # test the oled fade mode = once (display will fade down in brightness, and then turn off)
+        #      In my opinion this feature is not that useful, but I provided it because the OLED is capable of it.
+        # test the lcd backlight on/off
+        # Note: Fade mode is not very useful for some displays, as some displays will fade in brightness to about 50% and then turn off.
+        for i in range(0,TESTNUM):
+            lcd.clear()
+            oled.clear()
+            lcd.backlightOn()
+            lcd.writeString("Backlight On/Off")
+            oled.fadeOff()
+            oled.writeString("Fade Mode = Off")
+            sleep(2)
+            lcd.clear()
+            oled.clear()
+            lcd.writeString("Backlight Off")
+            lcd.backlightOff()
+            oled.writeString("Fade Mode = Once")
+            oled.fadeOnce(4)   # fade out the oled once with a delay of 4 (valid values are 0-15). You must use fadeOff() to turn display on again.
+            sleep(8)
+        lcd.writeString("Backlight On")
+        oled.fadeOff()
+
+
+
+
+
 
         # test creating and displaying custom characters
         # thanks to dfrobot.com for these custom characters

@@ -1,34 +1,25 @@
-### I2cCharDisplay - Raspberry Pi Python library for controlling LCD and OLED Character Displays
+
+### I2cCharDisplay - Raspberry Pi software library for controlling I²C character LCD and OLED Displays
 
 <div style="text-align: center;">
-
 <div style="display: inline-block; margin-right: 5px;">
-<img class="size-thumbnail wp-image-176" src="http://wht.io/wp-content/uploads/projects/i2c-char-display/newhaven-raspberrypi.jpg" alt="i2c character display with Raspberry Pi" width="300" height="200" />
+<img class="size-thumbnail wp-image-175" src="https://www.dcity.org/dcity/wp-content/uploads/projects/i2c-oled-backpack-newhaven/newhaven-seeeduino.jpg" alt="i2c oled backpack" width="300" height="200" />
+</div>
+<div style="display: inline-block; margin-right: 5px;">
+<img class="size-thumbnail wp-image-175" src="https://www.dcity.org/dcity/wp-content/uploads/projects/i2c-oled-backpack-newhaven/i2c-oled-backpack-on-newhaven.jpg" alt="i2c oled backpack" width="300" height="200" />
+</div>
+<div style="display: inline-block; margin-right: 5px;">
+<img class="size-thumbnail wp-image-176" src="https://www.dcity.org/dcity/wp-content/uploads/projects/i2c-oled-backpack-newhaven/i2c-oled-backpack-newhaven.jpg" alt="i2c oled backpack with display" width="300" height="200" />
+</div>
 </div>
 
-</div>
+**[This link has details](https://www.dcity.org/portfolio/i2c-display-library/) including:**
+* software library installation for use with Arduino, Particle and Raspberry Pi boards
+* list of functions available in these libraries
+* a demo program (which shows the usage of most library functions)
+* info on OLED and LCD character displays that work with this software
+* hardware design for a backpack board for LCDs and OLEDs, available on github
+* info on backpack “bare” pc boards available from OSH Park.
 
-#### Short Description:
-
-This library works with Raspberry Pi boards and it provides many functions to communicate with OLED and LCD character display modules that use the I2C communication protocol. The demo program shows the usage of the functions in the library.
-
-The library will work with **LCD** and **OLED** character displays (e.g. 16x2, 20x2, 20x4, etc.). The LCD displays must use the the HD44780 controller chip and have a I2C PCA8574 i/o expander chip
-on a backpack board (which gives the display I2C capability). OLED display modules must have the US2066 controller chip (which has I2C built in).
-
-A demo program demonstrates all of the functions in the I2cCharDisplay library.
-
-See the links below for installation and usage information.
-
-#### Project Details:
-* Library installation and usage: http://wht.io/portfolio/i2c-display-library/
-* OLED hardware information for EastRising modules: http://wht.io/portfolio/i2c-oled-backpack-board-eastrising/
-* OLED hardware information for Newhaven modules: http://wht.io/portfolio/i2c-oled-backpack-board-newhaven/
-* LCD hardware information: http://wht.io/portfolio/i2c-lcd-backpack-board/
-
-#### Software Github repositories (library and demo programs):
-* Arduino library files:  https://github.com/wht-io/i2c-char-display-arduino.git
-* Particle library files: https://github.com/wht-io/i2c-char-display-particle.git
-* Raspberry Pi library files: https://github.com/wht-io/i2c-char-display-raspberrypi.git
-
-
-**See LICENSE.md for license information.**
+**License Information**
+License Information is [here](https://www.dcity.org/license-information/).
