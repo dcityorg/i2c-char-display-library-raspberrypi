@@ -24,5 +24,5 @@ setup(
     ],
     keywords='RPi US2066 HD44780 I2C interface OLED LCD',
     py_modules=['I2cCharDisplay'],
-    install_requires=['smbus2'],    
+    install_requires=['smbus'],    
 )
