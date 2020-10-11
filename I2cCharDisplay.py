@@ -14,6 +14,9 @@
                 void fadeOff()           - turns off the fade feature of the OLED
                 void fadeOnce(value)   - fade out the display to off (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
                 void fadeBlink(value)  - blinks the fade feature of the OLED (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
+        1.0.2 - 7/1/2019
+            The functions fadeOff(), faderOnce() and fadeBlink() did not get put into the I2cCharDisplay.py file (in version 1.0.1)
+                and are added in this version.
 
     Short Description:
 
@@ -310,6 +313,58 @@ class I2cCharDisplay(object):
         self.sendCommand(0x80)        # set RE=0
         self.sendCommand(0x28)
 
+    # Set the oled fade out feature to OFF
+    def fadeOff(self):
+        self.sendCommand(0x80)        # set RE=1
+        self.sendCommand(0x2A)
+
+        self.sendCommand(0x80)        # set SD=1
+        self.sendCommand(0x79)
+
+        self.sendCommand(I2cCharDisplay.OLED_SETFADECOMMAND)
+        self.sendCommand(I2cCharDisplay.OLED_FADEOFF)      #set fade feature to OFF
+
+        self.sendCommand(0x80)        # set SD=0
+        self.sendCommand(0x78)
+
+        self.sendCommand(0x80)        # set RE=0
+        self.sendCommand(0x28)
+
+
+    # Set the oled fade out feature to ON (value is the rate of fade 0-15)
+    def fadeOnce(self,  value):
+        self.sendCommand(0x80)        # set RE=1
+        self.sendCommand(0x2A)
+
+        self.sendCommand(0x80)        # set SD=1
+        self.sendCommand(0x79)
+
+        self.sendCommand(I2cCharDisplay.OLED_SETFADECOMMAND)
+        self.sendCommand(I2cCharDisplay.OLED_FADEON | (0x0f & value))  # set fade feature to ON with a delay interval of value
+
+        self.sendCommand(0x80)        # set SD=0
+        self.sendCommand(0x78)
+
+        self.sendCommand(0x80)        # set RE=0
+        self.sendCommand(0x28)
+
+
+    # Set the oled fade out feature to BLINK (value is the rate of fade 0-15)
+    def fadeBlink(self,  value):
+        self.sendCommand(0x80)        # set RE=1
+        self.sendCommand(0x2A)
+
+        self.sendCommand(0x80)        # set SD=1
+        self.sendCommand(0x79)
+
+        self.sendCommand(I2cCharDisplay.OLED_SETFADECOMMAND)
+        self.sendCommand(I2cCharDisplay.OLED_FADEBLINK | (0x0f & value))  # set fade feature to BLINK with a delay interval of value
+
+        self.sendCommand(0x80)        # set SD=0
+        self.sendCommand(0x78)
+
+        self.sendCommand(0x80)        # set RE=0
+        self.sendCommand(0x28)
 
 
     # private functions ********************************

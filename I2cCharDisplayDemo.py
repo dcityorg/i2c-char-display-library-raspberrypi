@@ -14,6 +14,9 @@
                 void fadeOff()           - turns off the fade feature of the OLED
                 void fadeOnce(value)   - fade out the display to off (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
                 void fadeBlink(value)  - blinks the fade feature of the OLED (fade time 0-16) - (on some display types, it doesn't work very well. It takes the display to half brightness and then turns off display)
+        1.0.2 - 7/1/2019
+            The functions fadeOff(), faderOnce() and fadeBlink() did not get put into the I2cCharDisplay.py file (in version 1.0.1)
+                and are added in this version.
 
     Short Description:
 
@@ -29,7 +32,7 @@
         HD44780 controller chip and have a I2C PCA8574 i/o expander chip
         on a backpack board (which gives the display I2C capability).
         OLED display modules must have the US2066 controller chip
-        (which has I2C built in). Backback boards are available and 
+        (which has I2C built in). Backback boards are available and
         details are in the link below.
 
 
