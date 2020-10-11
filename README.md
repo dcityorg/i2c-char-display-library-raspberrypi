@@ -3,7 +3,7 @@
 
 <div style="text-align: center;">
 <div style="display: inline-block; margin-right: 5px;">
-<a href="https://www.dcity.org/dcity/wp-content/uploads/i2c-oled-newhaven-with-blackboard.jpg"><img src="https://www.dcity.org/dcity/wp-content/uploads/i2c-oled-newhaven-with-blackboard-600x400.jpg" alt="" width="300" height=“200" class="alignnone size-medium wp-image-517" /></a>
+<a href="https://www.dcity.org/dcity/wp-content/uploads/i2c-oled-newhaven-with-raspberrypi"><img src="https://www.dcity.org/dcity/wp-content/uploads/i2c-oled-newhaven-with-raspberrypi-600x400.jpg" alt="" width="300" height=“200" class="alignnone size-medium wp-image-517" /></a>
 </div>
 
 <div style="display: inline-block; margin-right: 5px;">
