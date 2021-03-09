@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='I2cCharDisplay',
-    version='1.0.1',
+    version='1.0.2',
     description='Raspberry Pi software library for controlling I²C character LCD and OLED Displays',
     long_description=open('README.md').read(),
     url='https://github.com/dcityorg/i2c-char-display-library-raspberrypi',
