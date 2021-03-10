@@ -23,11 +23,5 @@
 * hardware design for a backpack board for LCDs and OLEDs, available on github
 * info on backpack "bare" pc boards available from OSH Park.
 
-**Installation** - 
-To install the library directly from github, you can enter the following from a command prompt on your Raspberry Pi:
-```bash
-pip3 install git+https://github.com/dcityorg/i2c-char-display-library-raspberrypi.git
-```
-
 **License Information**
 License Information is [here](https://www.dcity.org/license-information/).
